@@ -1,119 +1,183 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SofiaTube - Watch & Earn</title>
+    <title>Sofia Premium - Watch & Earn</title>
     <style>
-        /* YouTube Dark Theme Design */
-        body { 
-            margin: 0; padding: 0; background-color: #0f0f0f; color: white; 
-            font-family: 'Roboto', Arial, sans-serif;
-            display: flex; flex-direction: column; align-items: center;
+        /* Modern Glassmorphism Design */
+        body {
+            margin: 0;
+            background: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
+            color: #fff;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         header {
-            width: 100%; padding: 15px 25px; background: #0f0f0f;
-            display: flex; align-items: center; position: sticky; top: 0; z-index: 100;
+            width: 100%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
         }
 
-        .logo { color: #ff0000; font-size: 24px; font-weight: bold; text-decoration: none; display: flex; align-items: center; }
-        .logo span { color: white; margin-left: 5px; font-size: 20px; }
-
-        /* Video Section */
-        .container { width: 100%; max-width: 900px; margin-top: 10px; }
-
-        .video-box {
-            position: relative; width: 100%; aspect-ratio: 16 / 9;
-            background: #000; cursor: pointer; border-radius: 12px; overflow: hidden;
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #ff4757, #ff6b81);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        video { width: 100%; height: 100%; display: block; }
-
-        /* Play Button Overlay (YouTube Style) */
-        .play-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(0,0,0,0.1); z-index: 10;
+        /* Container for Video Card */
+        .premium-card {
+            width: 95%;
+            max-width: 1000px;
+            margin: 40px auto;
+            background: #111;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid #333;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
         }
 
-        .yt-button {
-            width: 68px; height: 48px; background: rgba(255, 0, 0, 0.9);
-            border-radius: 12px; position: relative; transition: 0.3s;
+        .video-player-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            cursor: pointer;
         }
 
-        .yt-button::after {
-            content: ''; position: absolute; top: 14px; left: 27px;
-            border-style: solid; border-width: 10px 0 10px 20px;
+        video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Custom Modern Play Button */
+        .glow-play-btn {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px; height: 90px;
+            background: rgba(255, 71, 87, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(255, 71, 87, 0.6);
+            transition: 0.4s;
+            z-index: 10;
+        }
+
+        .glow-play-btn::after {
+            content: '';
+            border-style: solid;
+            border-width: 15px 0 15px 25px;
             border-color: transparent transparent transparent white;
+            margin-left: 5px;
         }
 
-        .video-box:hover .yt-button { background: red; transform: scale(1.1); }
-
-        /* Video Info */
-        .video-details { padding: 15px 10px; }
-        .video-title { font-size: 19px; font-weight: bold; line-height: 1.4; margin-bottom: 8px; }
-        .video-meta { font-size: 14px; color: #aaa; }
-
-        /* Action Button */
-        .action-bar { text-align: center; padding: 20px; }
-        .reward-btn {
-            background: #ff4757; color: white; padding: 12px 35px;
-            border: none; border-radius: 25px; font-weight: bold; font-size: 16px;
-            cursor: pointer; box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+        .video-player-container:hover .glow-play-btn {
+            transform: translate(-50%, -50%) scale(1.15);
+            background: #ff4757;
         }
 
-        /* Ad Spaces */
-        .ad-banner {
-            width: 95%; max-width: 728px; height: 90px; background: #1a1a1a;
-            margin: 15px 0; border: 1px solid #333; display: flex;
-            align-items: center; justify-content: center; color: #444; font-size: 12px;
+        .info-section {
+            padding: 30px;
+            background: linear-gradient(to top, #000, #111);
+        }
+
+        .video-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .video-meta {
+            color: #888;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        /* Animated Reward Button */
+        .btn-premium {
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: white;
+            padding: 18px 50px;
+            border: none;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 71, 87, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 71, 87, 0.6);
+        }
+
+        /* Ad Slots with styling */
+        .ad-box {
+            width: 90%;
+            max-width: 728px;
+            height: 90px;
+            margin: 20px 0;
+            background: #1a1a1a;
+            border: 1px dashed #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo">▶<span>SofiaTube</span></a>
+        <div class="logo">SOFIA PREMIUM</div>
     </header>
 
-    <div class="ad-banner">TOP AD SLOT (PAISA HERE)</div>
+    <div class="ad-box">TOP BANNER AD SPACE</div>
 
-    <div class="container">
-        <div class="video-box" onclick="startApp()">
-            <video id="sofiaPlayer" poster="https://via.placeholder.com/1280x720/111/fff?text=Click+to+Watch+Premium+Video">
+    <div class="premium-card">
+        <div class="video-player-container" onclick="handlePremiumAction()">
+            <video id="pPlayer" poster="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80">
                 <source src="video1.mp4" type="video/mp4">
             </video>
+            <div class="glow-play-btn" id="pBtn"></div>
+        </div>
+
+        <div class="info-section">
+            <div class="video-title">The Secret Quest: Earn $100 Daily with Sofia</div>
+            <div class="video-meta">Premium Member Exclusive • 2.8M views • Trending #1</div>
             
-            <div class="play-overlay" id="pOverlay">
-                <div class="yt-button"></div>
+            <div style="text-align: center;">
+                <button class="btn-premium" onclick="alert('Watch video to unlock!')">GET REWARD NOW 💎</button>
             </div>
-        </div>
-
-        <div class="video-details">
-            <div class="video-title">Sofia Special Quest: Daily Reward Video (February 2026)</div>
-            <div class="video-meta">2.4M views • 2 hours ago • #SofiaQuest #EarnMoney</div>
-        </div>
-
-        <div class="action-bar">
-            <button class="reward-btn" onclick="alert('Pehle video poori dekhein!')">CLAIM REWARD 💰</button>
         </div>
     </div>
 
-    <div class="ad-banner" style="height: 250px;">BOTTOM NATIVE AD SLOT</div>
+    <div class="ad-box" style="height: 250px;">BOTTOM NATIVE AD SPACE</div>
 
     <script>
-        function startApp() {
-            var v = document.getElementById('sofiaPlayer');
-            var o = document.getElementById('pOverlay');
+        function handlePremiumAction() {
+            var v = document.getElementById('pPlayer');
+            var b = document.getElementById('pBtn');
 
-            // 1. AD OPEN SYSTEM: Apna Adsterra Direct Link yahan daalein
+            // 1. OPEN AD (Adsterra Direct Link Link)
             window.open("https://www.google.com", "_blank"); 
 
-            // 2. VIDEO PLAY SYSTEM
+            // 2. PLAY VIDEO
             v.play();
-            v.controls = true; // Play hote hi YouTube jaise buttons aa jayenge
-            o.style.display = "none"; // Red play button gayab ho jayega
+            v.controls = true;
+            b.style.display = "none";
         }
     </script>
 
