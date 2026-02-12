@@ -3,66 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sofia Premium</title>
+    <title>Sofia Premium Wallpapers</title>
     <style>
-        body { margin: 0; background: #000; overflow-x: hidden; font-family: sans-serif; }
-        
-        /* Yeh box video ko kaat (crop) dega */
-        .video-frame {
-            width: 100vw; 
-            height: 56.25vw; /* 16:9 ratio */
-            max-height: 500px;
-            margin: 20px auto;
-            position: relative;
-            overflow: hidden; /* Faltu bars yahan se kat jayengi */
-            border-radius: 10px;
+        /* Modern Dark Theme */
+        body { 
+            margin: 0; 
+            background: #0a0a0a; 
+            color: white; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
         }
 
-        /* 1. Play Button Layer (Peche ki bar chhupane ke liye) */
-        .cover {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 10; display: flex; align-items: center; justify-content: center;
-        }
-        .btn-play { width: 80px; height: 55px; background: red; border-radius: 15px; cursor: pointer; }
-
-        /* 2. THE SECRET ZOOM: Video ko itna bada kiya ki controls frame se bahar ho jayein */
-        iframe {
-            width: 140%; /* 40% zyada bada */
-            height: 140%; 
-            position: absolute;
-            top: -20%; /* Upar se bahar nikal diya */
-            left: -20%; /* Left se bahar nikal diya */
-            border: none;
-            pointer-events: none; /* User control ko touch nahi kar payega */
+        header { 
+            padding: 30px; 
+            background: #000; 
+            border-bottom: 3px solid #ff4757; 
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .text-center { text-align: center; padding: 20px; }
-        .claim { background: #ff4757; color: #fff; padding: 15px 40px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; }
+        header h1 { margin: 0; color: #ff4757; letter-spacing: 2px; }
+        header p { margin: 5px 0 0; color: #888; font-size: 14px; }
+
+        /* Wallpaper Grid */
+        .gallery { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; 
+            padding: 30px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        .card { 
+            background: #1a1a1a; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            transition: transform 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .card:hover { transform: translateY(-10px); border-color: #ff4757; }
+
+        .card img { 
+            width: 100%; 
+            height: 450px; 
+            object-fit: cover; 
+            display: block;
+        }
+
+        .card-info { padding: 20px; text-align: center; }
+        .card-info h3 { margin: 0 0 15px; font-size: 18px; }
+
+        /* Stylish Download Button */
+        .btn-download { 
+            background: #ff4757; 
+            color: white; 
+            border: none; 
+            padding: 12px 0; 
+            width: 100%; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            font-size: 16px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-download:hover { background: #ff6b81; }
+
+        footer { padding: 40px; text-align: center; color: #555; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
 
-    <div class="video-frame">
-        <div class="cover" id="c" onclick="playVideo()">
-            <div class="btn-play"></div>
+    <header>
+        <h1>SOFIA WALLPAPERS</h1>
+        <p>Premium 4K Wallpapers for your Device</p>
+    </header>
+
+    <div class="gallery">
+        
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05" alt="Nature">
+            <div class="card-info">
+                <h3>Nature Mist HD</h3>
+                <button class="btn-download" onclick="startDownload('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05', 'Nature_Sofia.jpg')">
+                    DOWNLOAD 📥
+                </button>
+            </div>
         </div>
-        <iframe id="vid" src=""></iframe>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e" alt="Forest">
+            <div class="card-info">
+                <h3>Green Forest 4K</h3>
+                <button class="btn-download" onclick="startDownload('https://images.unsplash.com/photo-1441974231531-c6227db76b6e', 'Forest_Sofia.jpg')">
+                    DOWNLOAD 📥
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b" alt="Landscape">
+            <div class="card-info">
+                <h3>Mountain Peak</h3>
+                <button class="btn-download" onclick="startDownload('https://images.unsplash.com/photo-1501854140801-50d01698950b', 'Mountain_Sofia.jpg')">
+                    DOWNLOAD 📥
+                </button>
+            </div>
+        </div>
+
     </div>
 
-    <div class="text-center">
-        <h2 style="color:white;">Sofia Special Rewards</h2>
-        <button class="claim">CLAIM $100 💰</button>
-    </div>
+    <footer>
+        &copy; 2026 Sofia QuestVerse - All Rights Reserved
+    </footer>
 
     <script>
-        function playVideo() {
-            // Apna Ad link yahan dalein
-            window.open("https://www.google.com", "_blank");
+        // 1. Apna Adsterra Direct Link yahan paste karein
+        var adLink = "https://www.google.com"; 
 
-            var f = document.getElementById('vid');
-            f.src = "https://drive.google.com/file/d/19qYqzultB49ci92P8LoKJkzGSyVUIk3C/preview?autoplay=1";
-            
-            document.getElementById('c').style.display = "none";
+        function startDownload(url, filename) {
+            // Click karte hi pehle Ad naye tab mein khulega
+            window.open(adLink, "_blank");
+
+            // Phir wallpaper download trigger hoga
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, 500); // 0.5 second ka delay taaki ad block na ho
         }
     </script>
 
