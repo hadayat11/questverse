@@ -9,24 +9,18 @@
         header { width: 100%; padding: 15px; background: #000; border-bottom: 2px solid red; text-align: center; }
         
         .video-wrapper { width: 95%; max-width: 850px; margin-top: 25px; background: #1a1a1a; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+        .player-container { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; }
         
-        /* Container for Player */
-        .player-container { 
-            position: relative; width: 100%; aspect-ratio: 16/9; 
-            background: #000; overflow: hidden; 
-        }
-        
-        /* 1. AD SHIELD & CONTROLS HIDER */
-        .ad-shield { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            z-index: 100; cursor: pointer; display: flex; align-items: center; 
-            justify-content: center; background: rgba(0,0,0,0.4); 
+        /* 1. BLACK POSTER LAYER (Controls ko poora chhupa dega) */
+        .black-poster {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 150; display: flex; align-items: center; justify-content: center;
         }
 
         /* YouTube Style Play Button */
         .play-btn-red { 
             width: 70px; height: 50px; background: #ff0000; border-radius: 12px; 
-            position: relative; transition: 0.3s;
+            position: relative; cursor: pointer; z-index: 160;
         }
         .play-btn-red::after { 
             content: ''; position: absolute; top: 13px; left: 28px; 
@@ -34,12 +28,8 @@
             border-color: transparent transparent transparent white; 
         }
 
-        /* 2. THE SECRET: This hides Drive controls */
-        iframe { 
-            width: 100%; height: 120%; /* Thoda bada taaki controls niche dab jayein */
-            border: none; margin-top: -5%; /* Top bar chhupane ke liye */
-            display: none; pointer-events: none; /* User isse click nahi kar payega */
-        }
+        /* 2. IFRAME SETTINGS */
+        iframe { width: 100%; height: 100%; border: none; display: block; opacity: 0; transition: opacity 0.5s; }
 
         .details { padding: 20px; text-align: center; }
         .btn-claim { background: #ff4757; color: white; padding: 12px 35px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 10px; }
@@ -51,7 +41,7 @@
 
     <div class="video-wrapper">
         <div class="player-container">
-            <div class="ad-shield" id="shield" onclick="startSofiaVideo()">
+            <div class="black-poster" id="poster" onclick="startSofiaVideo()">
                 <div class="play-btn-red"></div>
             </div>
 
@@ -60,27 +50,25 @@
 
         <div class="details">
             <h2 style="margin:0;">Exclusive Premium Video</h2>
-            <p style="color:#aaa;">Click the play button to start watching.</p>
             <button class="btn-claim">CLAIM REWARD 💰</button>
         </div>
     </div>
 
     <script>
         var myDriveID = "19qYqzultB49ci92P8LoKJkzGSyVUIk3C";
-        var myAdLink = "https://www.google.com"; // Apna Adsterra link yahan dalein
+        var myAdLink = "https://www.google.com"; 
 
         function startSofiaVideo() {
+            // 1. Open Ad
             window.open(myAdLink, "_blank");
 
+            // 2. Load Video
             var frame = document.getElementById('sofiaFrame');
-            // Controls=0 aur autoplay=1 taaki Drive ke buttons na dikhen
-            frame.src = "https://drive.google.com/file/d/" + myDriveID + "/preview?autoplay=1&controls=0";
-            frame.style.display = "block";
+            frame.src = "https://drive.google.com/file/d/" + myDriveID + "/preview?autoplay=1";
             
-            // Shield ko transparent kar dein taaki user video dekh sake par buttons click na ho
-            var shield = document.getElementById('shield');
-            shield.style.background = "transparent";
-            document.querySelector('.play-btn-red').style.display = "none";
+            // 3. Hide Poster & Show Video
+            document.getElementById('poster').style.display = "none";
+            frame.style.opacity = "1";
         }
     </script>
 
