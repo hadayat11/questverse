@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sofia Premium - Video Rewards</title>
+    <title>SofiaTube Premium - Watch & Earn</title>
     <style>
+        /* Modern Dark Theme */
         body { 
-            margin: 0; padding: 0; background: #0f0f0f; color: white; 
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0; padding: 0; background: #0a0a0a; color: white; 
+            font-family: 'Segoe UI', Roboto, sans-serif;
             display: flex; flex-direction: column; align-items: center;
         }
 
         header {
             width: 100%; padding: 15px; background: #000;
             border-bottom: 2px solid #ff0000; text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        /* Modern Video Container */
+        .logo { color: #ff0000; font-size: 26px; font-weight: bold; letter-spacing: 1px; }
+
+        /* Premium Video Card */
         .video-main-card {
             width: 95%; max-width: 850px; margin: 30px auto;
-            background: #1a1a1a; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            background: #161616; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid #222;
         }
 
         .video-box {
@@ -28,71 +33,84 @@
             background: #000;
         }
 
-        /* Yeh Shield Ad kholne ke liye hai */
+        /* The Secret Click Shield for Ads */
         .click-shield {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 100; cursor: pointer; display: flex;
             align-items: center; justify-content: center;
-            background: rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.3);
         }
 
-        .play-button-yt {
-            width: 70px; height: 50px; background: rgba(255, 0, 0, 0.9);
+        /* YouTube Style Play Button */
+        .play-btn-yt {
+            width: 75px; height: 52px; background: rgba(255, 0, 0, 0.9);
             border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            transition: 0.3s;
         }
 
-        .play-button-yt::after {
-            content: ''; border-style: solid; border-width: 10px 0 10px 20px;
+        .play-btn-yt::after {
+            content: ''; border-style: solid; border-width: 12px 0 12px 22px;
             border-color: transparent transparent transparent white; margin-left: 5px;
+        }
+
+        .click-shield:hover .play-btn-yt {
+            background: #ff0000; transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
         }
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        .video-info { padding: 20px; }
-        .reward-btn {
-            background: #ff4757; color: white; padding: 15px 40px;
-            border: none; border-radius: 50px; font-weight: bold;
-            font-size: 18px; cursor: pointer; display: block; margin: 0 auto;
+        .video-info { padding: 25px; text-align: left; }
+        .video-title { font-size: 22px; font-weight: bold; margin-bottom: 10px; color: #eee; }
+        
+        .reward-section { text-align: center; padding-bottom: 25px; }
+        .btn-claim {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: white; padding: 15px 45px; border: none;
+            border-radius: 50px; font-weight: bold; font-size: 18px;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+            transition: 0.3s;
         }
+        .btn-claim:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 71, 87, 0.6); }
     </style>
 </head>
 <body>
 
-    <header><h1 style="margin:0; font-size:24px; color:red;">SOFIA<span>TV</span></h1></header>
+    <header><div class="logo">SOFIA<span>TUBE</span> PREMIUM</div></header>
 
     <div class="video-main-card">
         <div class="video-box">
             <div class="click-shield" id="shield" onclick="playWithAd()">
-                <div class="play-button-yt"></div>
+                <div class="play-btn-yt"></div>
             </div>
 
-            <iframe id="videoPlayer" src="" allow="autoplay"></iframe>
+            <iframe id="sofiaVideo" src="" allow="autoplay"></iframe>
         </div>
 
         <div class="video-info">
-            <h2 style="margin:0;">Sofia Exclusive: 100MB High Quality Video</h2>
-            <p style="color:#aaa;">Watch here on our official website to earn rewards.</p>
-            <button class="reward-btn">CLAIM REWARD 💰</button>
+            <div class="video-title">Exclusive Quest: High Quality Video Rewards</div>
+            <p style="color:#888;">Watch the full 100MB video on this page to unlock your premium points.</p>
+        </div>
+
+        <div class="reward-section">
+            <button class="btn-claim" onclick="alert('Please watch the video first!')">CLAIM REWARD 💰</button>
         </div>
     </div>
 
     <script>
         // --- CONFIGURATION ---
-        // 1. Apni Google Drive Video ka ID yahan daalein
-        var driveID = "1-XXXXX_YOUR_VIDEO_ID_HERE_XXXXX"; 
-        
-        // 2. Apna Adsterra Direct Link yahan daalein
-        var adLink = "https://www.google.com"; 
+        var driveID = "19qYqzultB49ci92P8LoKJkzGSyVUIk3C"; // Aapka Video ID
+        var adLink = "https://www.google.com"; // Yahan apna Adsterra Direct Link daal dena
 
         function playWithAd() {
-            // Pehle Ad naye tab mein khulega
+            // 1. Open Ad in new tab
             window.open(adLink, "_blank");
 
-            // Phir video aapki website ke andar hi chalne lagegi
-            var player = document.getElementById('videoPlayer');
+            // 2. Play Video inside your website
+            var player = document.getElementById('sofiaVideo');
             player.src = "https://drive.google.com/file/d/" + driveID + "/preview?autoplay=1";
             
-            // Shield hata do taaki video dikhe
+            // 3. Remove the shield
             document.getElementById('shield').style.display = "none";
         }
     </script>
