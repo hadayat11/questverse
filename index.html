@@ -3,161 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sofia Video Rewards - Watch & Earn</title>
+    <title>Sofia's Video World</title>
     <style>
-        /* Modern Dark Theme */
-        body { 
-            margin: 0; 
-            font-family: 'Poppins', sans-serif; 
-            background-color: #0b0b0b; 
-            color: white; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        header {
-            width: 100%;
-            padding: 25px;
-            text-align: center;
-            background: #161616;
-            border-bottom: 3px solid #ff4757;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        /* Ad Slots for Revenue */
-        .ad-box {
-            width: 95%;
-            max-width: 728px;
-            height: 90px;
-            background: #1a1a1a;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed #444;
-            color: #666;
-            font-size: 14px;
-        }
-
-        /* Main Video Container */
-        .video-wrapper {
-            width: 95%;
-            max-width: 850px;
-            background: #161616;
-            padding: 15px;
-            border-radius: 20px;
-            box-shadow: 0px 15px 35px rgba(0,0,0,0.8);
-            border: 1px solid #222;
-        }
-
-        .video-screen {
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #000;
-            line-height: 0;
-        }
-
-        video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Reward Section */
-        .reward-info {
-            padding: 25px 15px;
-            text-align: center;
-        }
-
-        .reward-info h2 {
-            margin: 0 0 10px 0;
-            color: #ff4757;
-        }
-
-        .reward-info p {
-            color: #aaa;
-            margin-bottom: 20px;
-        }
-
-        .btn-claim {
-            background: linear-gradient(135deg, #ff4757, #ff6b81);
-            color: white;
-            padding: 18px 45px;
-            border: none;
-            border-radius: 12px;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
-        }
-
-        .btn-claim:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(255, 71, 87, 0.5);
-        }
-
-        .btn-claim:active {
-            transform: translateY(1px);
-        }
-
-        footer {
-            margin: 40px 0;
-            color: #444;
-            font-size: 13px;
-            letter-spacing: 1px;
-        }
+        body { margin: 0; background: #000; color: #fff; font-family: Arial; text-align: center; }
+        header { padding: 15px; background: #1a1a1a; border-bottom: 2px solid #ff4757; }
+        .video-container { width: 95%; max-width: 800px; margin: 20px auto; border: 2px solid #333; border-radius: 15px; overflow: hidden; }
+        video { width: 100%; display: block; }
+        .paisa-btn { background: #ff4757; color: #fff; padding: 15px 30px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; margin: 20px; }
+        .ad-banner { background: #222; height: 90px; margin: 20px auto; display: flex; align-items: center; justify-content: center; width: 90%; color: #666; border: 1px dashed #444; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>SOFIA VIDEO QUEST</h1>
-        <p style="margin: 5px 0 0 0; opacity: 0.8;">Premium Video Entertainment</p>
-    </header>
+    <header><h1>SOFIA QUEST VIDEO</h1></header>
 
-    <div class="ad-box">
-        BANNER AD SPACE (728x90)
+    <div class="ad-banner">TOP AD SPACE (PAISA)</div>
+
+    <div class="video-container">
+        <video controls autoplay muted>
+            <source src="myvideo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
-    <div class="video-wrapper">
-        <div class="video-screen">
-            <video id="mainVideo" controls poster="https://via.placeholder.com/850x480/000000/FFFFFF?text=Sofia+Video+Quest">
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
+    <button class="paisa-btn" onclick="alert('Points Added!')">CLAIM REWARD 💰</button>
 
-        <div class="reward-info">
-            <h2>Watch & Earn Rewards</h2>
-            <p>Watch the full video to unlock your daily bonus points!</p>
-            
-            <button class="btn-claim" onclick="handleReward()">CLAIM REWARD 💰</button>
-        </div>
-    </div>
-
-    <div class="ad-box" style="height: 250px;">
-        NATIVE AD SPACE (300x250)
-    </div>
-
-    <footer>
-        &copy; 2026 SOFIA QUEST MEDIA | ALL RIGHTS RESERVED
-    </footer>
-
-    <script>
-        function handleReward() {
-            var video = document.getElementById('mainVideo');
-            if (video.currentTime > 5) { // User has watched at least 5 seconds
-                alert("Congratulations Sofia! Reward added to your account.");
-                // Optional: Redirect to an ad link
-                // window.open("https://your-ad-link.com", "_blank");
-            } else {
-                alert("Please watch the video first to claim your reward!");
-            }
-        }
-    </script>
+    <div class="ad-banner" style="height: 250px;">BOTTOM AD SPACE</div>
 
 </body>
 </html>
