@@ -4,27 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuestVerse | Pro APK Store</title>
-    
+
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-    
+
     <style>
         :root { --neon: #00f2ff; --purple: #7000ff; --dark: #050505; --glass: rgba(255, 255, 255, 0.05); }
         body { background: var(--dark); color: white; font-family: 'Poppins', sans-serif; margin: 0; }
-        
-        nav { display: flex; justify-content: space-between; padding: 20px 8%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--purple); align-items: center; }
+        nav { display: flex; justify-content: space-between; padding: 20px 8%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--purple); }
         .logo { font-family: 'Orbitron', sans-serif; font-size: 26px; color: var(--neon); text-shadow: 0 0 10px var(--neon); }
         .login-btn { background: var(--purple); color: white; border: none; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; }
-
-        /* Admin Section - Only for Sofia */
-        #adminPanel { display: none; background: var(--glass); margin: 20px 8%; padding: 25px; border-radius: 20px; border: 1px solid var(--neon); }
+        #adminPanel { display: none; margin: 20px 8%; padding: 25px; border-radius: 20px; border: 1px solid var(--neon); background: var(--glass); }
         .admin-input { background: #111; border: 1px solid #444; color: white; padding: 12px; margin: 5px 0; width: 100%; border-radius: 10px; box-sizing: border-box; }
-
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; padding: 40px 8%; }
         .game-card { background: var(--glass); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; transition: 0.4s; }
-        .game-card:hover { transform: translateY(-10px); border-color: var(--neon); }
         .game-card img { width: 100%; height: 170px; object-fit: cover; }
         .card-body { padding: 15px; text-align: center; }
         .download-btn { background: white; color: black; text-decoration: none; display: block; padding: 12px; border-radius: 12px; margin-top: 10px; font-weight: bold; }
@@ -34,95 +29,75 @@
 
 <nav>
     <div class="logo">QUESTVERSE</div>
-    <button class="login-btn" id="loginBtn" onclick="handleAuth()">LOGIN</button>
+    <button class="login-btn" id="loginBtn" onclick="login()">LOGIN</button>
 </nav>
 
 <div id="adminPanel">
-    <h3 style="margin-top:0;">Add New Game (Admin Only)</h3>
-    <input type="text" id="gName" class="admin-input" placeholder="Game Name">
-    <input type="text" id="gImg" class="admin-input" placeholder="Image URL">
-    <input type="text" id="gLink" class="admin-input" placeholder="APK Link">
-    <button class="login-btn" onclick="uploadGame()" style="width:100%; margin-top:10px;">ADD TO WEBSITE</button>
+    <h3>Add New Game</h3>
+    <input type="text" id="gameName" class="admin-input" placeholder="Game Name">
+    <input type="text" id="gameImg" class="admin-input" placeholder="Image URL">
+    <input type="text" id="gameLink" class="admin-input" placeholder="Download Link">
+    <button class="login-btn" onclick="addGame()" style="width:100%; margin-top:10px;">ADD TO WEBSITE</button>
 </div>
 
-<div class="grid" id="gameGrid">
-    </div>
+<div class="grid" id="gameGrid"></div>
 
 <script>
-    // 1. Firebase Configuration (Apna data yahan zaroor dalein)
+    // Sofia, yahan maine aapka naya config daal diya hai!
     const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_APP.firebaseapp.com",
-        projectId: "YOUR_APP",
-        storageBucket: "YOUR_APP.appspot.com",
-        messagingSenderId: "12345",
-        appId: "1:12345:web:abcd"
+      apiKey: "AIzaSyC0-_tmpcPMJCCYGlXDRewupZmGog-eC3g",
+      authDomain: "questverse-a6352.firebaseapp.com",
+      projectId: "questverse-a6352",
+      storageBucket: "questverse-a6352.firebasestorage.app",
+      messagingSenderId: "74079907074",
+      appId: "1:74079907074:web:c988e5b32780b7f564e61b",
+      measurementId: "G-BYQ30BPMEC"
     };
 
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
     const db = firebase.firestore();
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const auth = firebase.auth();
 
-    // 2. Auth Logic
-    function handleAuth() {
-        if (!auth.currentUser) { auth.signInWithPopup(provider); } 
-        else { auth.signOut().then(() => location.reload()); }
+    // Sofia, yahan apni asli Gmail ID likhein!
+    const adminEmail = "your-email@gmail.com"; 
+
+    function login() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider).then((res) => {
+            if(res.user.email === adminEmail) {
+                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('loginBtn').innerText = "ADMIN LOGGED IN";
+            }
+        });
     }
 
-    auth.onAuthStateChanged(user => {
-        if (user) {
-            document.getElementById('loginBtn').innerText = "LOGOUT";
-            if (user.email === "your-email@gmail.com") { // APNI EMAIL YAHAN LIKHEIN
-                document.getElementById('adminPanel').style.display = "block";
-            }
-        }
-    });
-
-    // 3. Game Upload Function (Baad mein use karne ke liye)
-    async function uploadGame() {
-        const name = document.getElementById('gName').value;
-        const img = document.getElementById('gImg').value;
-        const link = document.getElementById('gLink').value;
+    function addGame() {
+        const name = document.getElementById('gameName').value;
+        const img = document.getElementById('gameImg').value;
+        const link = document.getElementById('gameLink').value;
 
         if(name && img && link) {
-            await db.collection("games").add({
-                name: name, img: img, link: link,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            alert("Game Added Successfully!");
-            location.reload();
+            db.collection("games").add({ name, img, link, date: Date.now() })
+            .then(() => { alert("Game Added!"); location.reload(); });
         }
     }
 
-    // 4. Load Games (Real-time)
-    db.collection("games").orderBy("timestamp", "desc").onSnapshot(snapshot => {
-        let grid = document.getElementById('gameGrid');
-        grid.innerHTML = ""; // Clear grid
-        
-        // Pehle Database se games layega
-        snapshot.forEach(doc => {
-            let g = doc.data();
-            grid.innerHTML += createCard(g.name, g.img, g.link);
+    db.collection("games").orderBy("date", "desc").onSnapshot((snapshot) => {
+        const grid = document.getElementById('gameGrid');
+        grid.innerHTML = "";
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            grid.innerHTML += `
+                <div class="game-card">
+                    <img src="${data.img}" onerror="this.src='https://via.placeholder.com/300x170?text=QuestVerse'">
+                    <div class="card-body">
+                        <h3>${data.name}</h3>
+                        <a href="${data.link}" class="download-btn">DOWNLOAD</a>
+                    </div>
+                </div>`;
         });
-
-        // Agar database khali hai toh ye sample games dikhayega
-        if(snapshot.empty) {
-            grid.innerHTML += createCard("QuestVerse Origins", "https://via.placeholder.com/300x170", "#");
-            grid.innerHTML += createCard("Cyber Quest", "https://via.placeholder.com/300x170", "#");
-        }
     });
-
-    function createCard(name, img, link) {
-        return `
-            <div class="game-card">
-                <img src="${img}">
-                <div class="card-body">
-                    <h3>${name}</h3>
-                    <a href="${link}" class="download-btn">DOWNLOAD</a>
-                </div>
-            </div>`;
-    }
 </script>
+
 </body>
 </html>
