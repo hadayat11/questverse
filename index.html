@@ -9,13 +9,18 @@
         header { width: 100%; padding: 15px; background: #000; border-bottom: 2px solid red; text-align: center; }
         
         .video-wrapper { width: 95%; max-width: 850px; margin-top: 25px; background: #1a1a1a; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
-        .player-container { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; }
         
-        /* 1. AD SHIELD (Yeh controls ko chhupa kar rakhega) */
+        /* Container for Player */
+        .player-container { 
+            position: relative; width: 100%; aspect-ratio: 16/9; 
+            background: #000; overflow: hidden; 
+        }
+        
+        /* 1. AD SHIELD & CONTROLS HIDER */
         .ad-shield { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             z-index: 100; cursor: pointer; display: flex; align-items: center; 
-            justify-content: center; background: rgba(0,0,0,0.5); 
+            justify-content: center; background: rgba(0,0,0,0.4); 
         }
 
         /* YouTube Style Play Button */
@@ -28,10 +33,13 @@
             border-style: solid; border-width: 12px 0 12px 20px; 
             border-color: transparent transparent transparent white; 
         }
-        .ad-shield:hover .play-btn-red { transform: scale(1.1); background: #cc0000; }
-        
-        /* 2. VIDEO IFRAME (Bina controls ke shuru mein) */
-        iframe { width: 100%; height: 100%; border: none; display: none; }
+
+        /* 2. THE SECRET: This hides Drive controls */
+        iframe { 
+            width: 100%; height: 120%; /* Thoda bada taaki controls niche dab jayein */
+            border: none; margin-top: -5%; /* Top bar chhupane ke liye */
+            display: none; pointer-events: none; /* User isse click nahi kar payega */
+        }
 
         .details { padding: 20px; text-align: center; }
         .btn-claim { background: #ff4757; color: white; padding: 12px 35px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 10px; }
@@ -52,29 +60,27 @@
 
         <div class="details">
             <h2 style="margin:0;">Exclusive Premium Video</h2>
-            <p style="color:#aaa;">Click to watch and unlock your rewards.</p>
-            <button class="btn-claim" onclick="alert('Please watch the video first!')">CLAIM REWARD 💰</button>
+            <p style="color:#aaa;">Click the play button to start watching.</p>
+            <button class="btn-claim">CLAIM REWARD 💰</button>
         </div>
     </div>
 
     <script>
-        // 1. Apni Google Drive Video ID yahan check karein
         var myDriveID = "19qYqzultB49ci92P8LoKJkzGSyVUIk3C";
-        
-        // 2. Apna Adsterra Direct Link yahan dalein
-        var myAdLink = "https://www.google.com";
+        var myAdLink = "https://www.google.com"; // Apna Adsterra link yahan dalein
 
         function startSofiaVideo() {
-            // Ad naye tab mein khulega
             window.open(myAdLink, "_blank");
 
-            // Video player ko show karein aur video start karein
             var frame = document.getElementById('sofiaFrame');
-            frame.src = "https://drive.google.com/file/d/" + myDriveID + "/preview?autoplay=1";
+            // Controls=0 aur autoplay=1 taaki Drive ke buttons na dikhen
+            frame.src = "https://drive.google.com/file/d/" + myDriveID + "/preview?autoplay=1&controls=0";
             frame.style.display = "block";
             
-            // Shield (aur play button) ko hamesha ke liye hata dein
-            document.getElementById('shield').style.display = "none";
+            // Shield ko transparent kar dein taaki user video dekh sake par buttons click na ho
+            var shield = document.getElementById('shield');
+            shield.style.background = "transparent";
+            document.querySelector('.play-btn-red').style.display = "none";
         }
     </script>
 
