@@ -5,49 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sofia Premium - Watch & Earn</title>
     <style>
-        /* Modern Glassmorphism Design */
         body {
             margin: 0;
-            background: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
+            background: #050505;
             color: #fff;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
+        /* Premium Header */
         header {
             width: 100%;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(to bottom, #111, #050505);
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            border-bottom: 2px solid #ff4757;
         }
 
-        .logo {
-            font-size: 28px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            background: linear-gradient(to right, #ff4757, #ff6b81);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .logo { font-size: 30px; font-weight: 900; color: #ff4757; text-shadow: 0 0 10px rgba(255,71,87,0.5); }
 
-        /* Container for Video Card */
-        .premium-card {
+        /* Video Section */
+        .main-card {
             width: 95%;
-            max-width: 1000px;
-            margin: 40px auto;
+            max-width: 900px;
+            margin: 30px 0;
             background: #111;
-            border-radius: 24px;
+            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid #333;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            border: 1px solid #222;
         }
 
-        .video-player-container {
+        .video-player {
             position: relative;
             width: 100%;
             aspect-ratio: 16/9;
@@ -55,129 +46,79 @@
             cursor: pointer;
         }
 
-        video { width: 100%; height: 100%; object-fit: cover; }
+        video { width: 100%; height: 100%; }
 
-        /* Custom Modern Play Button */
-        .glow-play-btn {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90px; height: 90px;
-            background: rgba(255, 71, 87, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 30px rgba(255, 71, 87, 0.6);
-            transition: 0.4s;
-            z-index: 10;
+        .play-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80px; height: 80px; background: red; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; z-index: 10;
         }
 
-        .glow-play-btn::after {
-            content: '';
-            border-style: solid;
-            border-width: 15px 0 15px 25px;
-            border-color: transparent transparent transparent white;
-            margin-left: 5px;
+        .play-overlay::after {
+            content: ''; border-style: solid; border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent white; margin-left: 5px;
         }
 
-        .video-player-container:hover .glow-play-btn {
-            transform: translate(-50%, -50%) scale(1.15);
-            background: #ff4757;
-        }
-
-        .info-section {
-            padding: 30px;
-            background: linear-gradient(to top, #000, #111);
-        }
-
-        .video-title {
-            font-size: 26px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .video-meta {
-            color: #888;
-            font-size: 15px;
-            margin-bottom: 25px;
-        }
-
-        /* Animated Reward Button */
-        .btn-premium {
-            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
-            color: white;
-            padding: 18px 50px;
-            border: none;
-            border-radius: 15px;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(255, 71, 87, 0.4);
-            transition: 0.3s;
-        }
-
-        .btn-premium:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(255, 71, 87, 0.6);
-        }
-
-        /* Ad Slots with styling */
-        .ad-box {
+        /* Guide Section (Aapne jo manga tha) */
+        .guide-box {
             width: 90%;
-            max-width: 728px;
-            height: 90px;
-            margin: 20px 0;
-            background: #1a1a1a;
-            border: 1px dashed #444;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #555;
-            border-radius: 10px;
+            max-width: 850px;
+            background: #161616;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            border-left: 5px solid #ff4757;
+        }
+
+        .guide-box h3 { color: #ff4757; margin-top: 0; }
+        .guide-box ol { padding-left: 20px; color: #ccc; line-height: 1.8; }
+        .guide-box span { color: #fff; font-weight: bold; background: #333; padding: 2px 6px; border-radius: 4px; }
+
+        .btn-claim {
+            display: block; width: 250px; margin: 20px auto;
+            padding: 15px; background: #ff4757; color: white;
+            border: none; border-radius: 10px; font-weight: bold; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">SOFIA PREMIUM</div>
-    </header>
+    <header><div class="logo">SOFIA QUEST PREMIUM</div></header>
 
-    <div class="ad-box">TOP BANNER AD SPACE</div>
-
-    <div class="premium-card">
-        <div class="video-player-container" onclick="handlePremiumAction()">
-            <video id="pPlayer" poster="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80">
+    <div class="main-card">
+        <div class="video-player" onclick="startAction()">
+            <video id="vid" poster="https://via.placeholder.com/900x500/111/fff?text=Click+to+Play+Video">
                 <source src="video1.mp4" type="video/mp4">
             </video>
-            <div class="glow-play-btn" id="pBtn"></div>
+            <div class="play-overlay" id="overlay"></div>
         </div>
-
-        <div class="info-section">
-            <div class="video-title">The Secret Quest: Earn $100 Daily with Sofia</div>
-            <div class="video-meta">Premium Member Exclusive • 2.8M views • Trending #1</div>
-            
-            <div style="text-align: center;">
-                <button class="btn-premium" onclick="alert('Watch video to unlock!')">GET REWARD NOW 💎</button>
-            </div>
+        <div style="padding: 20px;">
+            <h2 style="margin:0;">Today's Reward Video</h2>
+            <p style="color:#666;">Watch full to earn points</p>
+            <button class="btn-claim">CLAIM REWARD 💰</button>
         </div>
     </div>
 
-    <div class="ad-box" style="height: 250px;">BOTTOM NATIVE AD SPACE</div>
+    <div class="guide-box">
+        <h3>🚀 Video Kaise Upload Karein? (Step-by-Step)</h3>
+        <ol>
+            <li>Apne phone/PC par <span>GitHub</span> repository (questverse) kholiye.</li>
+            <li>Upar likha hoga <span>Add file</span>, us par click karke <span>Upload files</span> chuniye.</li>
+            <li>Apni video file select karke upload hone dein.</li>
+            <li><span>Zaroori:</span> Upload hone ke baad video ka naam badal kar <span>video1.mp4</span> hi rakhein.</li>
+            <li>Sabse niche jaakar Green button <span>Commit changes</span> zaroori dabayein.</li>
+            <li>1 minute baad apni website refresh karein, video apne aap chalne lagegi!</li>
+        </ol>
+    </div>
 
     <script>
-        function handlePremiumAction() {
-            var v = document.getElementById('pPlayer');
-            var b = document.getElementById('pBtn');
-
-            // 1. OPEN AD (Adsterra Direct Link Link)
-            window.open("https://www.google.com", "_blank"); 
-
-            // 2. PLAY VIDEO
+        function startAction() {
+            var v = document.getElementById('vid');
+            var o = document.getElementById('overlay');
+            window.open("https://www.google.com", "_blank"); // Apna Ad link yahan daalein
             v.play();
             v.controls = true;
-            b.style.display = "none";
+            o.style.display = "none";
         }
     </script>
 
