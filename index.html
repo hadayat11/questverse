@@ -3,56 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SofiaTube Premium</title>
+    <title>Sofia Premium</title>
     <style>
-        body { margin: 0; background: #0f0f0f; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; }
+        body { margin: 0; background: #000; overflow-x: hidden; font-family: sans-serif; }
         
-        /* 1. Container jo faltu bars ko "Crop" kar dega */
-        .crop-box { 
-            width: 95%; max-width: 850px; margin-top: 30px; 
-            aspect-ratio: 16/9; background: #000; 
-            border-radius: 12px; overflow: hidden; position: relative;
-            border: 1px solid #333;
+        /* Yeh box video ko kaat (crop) dega */
+        .video-frame {
+            width: 100vw; 
+            height: 56.25vw; /* 16:9 ratio */
+            max-height: 500px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden; /* Faltu bars yahan se kat jayengi */
+            border-radius: 10px;
         }
 
-        /* 2. Play Button Layer */
-        .poster-layer {
+        /* 1. Play Button Layer (Peche ki bar chhupane ke liye) */
+        .cover {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 100; display: flex; align-items: center; justify-content: center;
+            background: #000; z-index: 10; display: flex; align-items: center; justify-content: center;
         }
-        .play-red { width: 70px; height: 50px; background: red; border-radius: 12px; cursor: pointer; }
+        .btn-play { width: 80px; height: 55px; background: red; border-radius: 15px; cursor: pointer; }
 
-        /* 3. The Zoom Hack: Niche ka timeline bahar nikalne ke liye */
-        iframe { 
-            width: 100%; height: 150%; /* Height badha di */
-            border: none; position: absolute;
-            top: -25%; /* Upar khiska diya taaki sirf beech ka video dikhe */
-            pointer-events: none; /* User isse touch nahi kar payega */
+        /* 2. THE SECRET ZOOM: Video ko itna bada kiya ki controls frame se bahar ho jayein */
+        iframe {
+            width: 140%; /* 40% zyada bada */
+            height: 140%; 
+            position: absolute;
+            top: -20%; /* Upar se bahar nikal diya */
+            left: -20%; /* Left se bahar nikal diya */
+            border: none;
+            pointer-events: none; /* User control ko touch nahi kar payega */
         }
 
-        .claim-area { padding: 30px; text-align: center; }
-        .btn { background: #ff4757; color: white; padding: 15px 40px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; }
+        .text-center { text-align: center; padding: 20px; }
+        .claim { background: #ff4757; color: #fff; padding: 15px 40px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="crop-box">
-        <div class="poster-layer" id="p" onclick="play()">
-            <div class="play-red"></div>
+    <div class="video-frame">
+        <div class="cover" id="c" onclick="playVideo()">
+            <div class="btn-play"></div>
         </div>
-        <iframe id="f" src=""></iframe>
+        <iframe id="vid" src=""></iframe>
     </div>
 
-    <div class="claim-area">
-        <button class="btn">CLAIM REWARD 💰</button>
+    <div class="text-center">
+        <h2 style="color:white;">Sofia Special Rewards</h2>
+        <button class="claim">CLAIM $100 💰</button>
     </div>
 
     <script>
-        function play() {
-            window.open("https://www.google.com", "_blank"); // Apna Ad link yahan rakhein
-            var frame = document.getElementById('f');
-            frame.src = "https://drive.google.com/file/d/19qYqzultB49ci92P8LoKJkzGSyVUIk3C/preview?autoplay=1";
-            document.getElementById('p').style.display = "none";
+        function playVideo() {
+            // Apna Ad link yahan dalein
+            window.open("https://www.google.com", "_blank");
+
+            var f = document.getElementById('vid');
+            f.src = "https://drive.google.com/file/d/19qYqzultB49ci92P8LoKJkzGSyVUIk3C/preview?autoplay=1";
+            
+            document.getElementById('c').style.display = "none";
         }
     </script>
 
