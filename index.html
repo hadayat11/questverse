@@ -8,31 +8,49 @@
         body { margin: 0; background: #0f0f0f; color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; }
         header { width: 100%; padding: 15px; background: #000; border-bottom: 2px solid red; text-align: center; }
         
-        .video-wrapper { width: 95%; max-width: 850px; margin-top: 25px; background: #1a1a1a; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
-        .player-container { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; }
-        
-        /* 1. BLACK POSTER LAYER (Controls ko poora chhupa dega) */
-        .black-poster {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 150; display: flex; align-items: center; justify-content: center;
+        /* Main Container jo video ko crop karega */
+        .video-wrapper { 
+            width: 95%; max-width: 850px; margin-top: 25px; 
+            background: #000; border-radius: 15px; 
+            overflow: hidden; /* Yeh zaroori hai controls chhupane ke liye */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            position: relative;
+            aspect-ratio: 16/9;
         }
 
-        /* YouTube Style Play Button */
-        .play-btn-red { 
-            width: 70px; height: 50px; background: #ff0000; border-radius: 12px; 
-            position: relative; cursor: pointer; z-index: 160;
+        /* 1. BLACK POSTER (Shuru mein dikhega) */
+        .poster {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 200; display: flex; align-items: center; justify-content: center;
         }
-        .play-btn-red::after { 
+
+        .play-btn { 
+            width: 70px; height: 50px; background: red; border-radius: 12px; 
+            cursor: pointer; position: relative;
+        }
+        .play-btn::after { 
             content: ''; position: absolute; top: 13px; left: 28px; 
             border-style: solid; border-width: 12px 0 12px 20px; 
             border-color: transparent transparent transparent white; 
         }
 
-        /* 2. IFRAME SETTINGS */
-        iframe { width: 100%; height: 100%; border: none; display: block; opacity: 0; transition: opacity 0.5s; }
+        /* 2. THE ZOOM TRICK: Video ko container se bada rakha hai */
+        .iframe-container {
+            width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0;
+        }
+
+        iframe { 
+            width: 100%; 
+            height: 130%; /* Height badha di taaki niche ke controls bahar nikal jayein */
+            border: none; 
+            position: absolute;
+            top: -15%; /* Top bar ko bhi bahar nikaal diya */
+            pointer-events: none; /* User click nahi kar payega */
+        }
 
         .details { padding: 20px; text-align: center; }
-        .btn-claim { background: #ff4757; color: white; padding: 12px 35px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-claim { background: #ff4757; color: white; padding: 12px 35px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -40,35 +58,29 @@
     <header><h1 style="margin:0; color:red;">SOFIA<span>TUBE</span></h1></header>
 
     <div class="video-wrapper">
-        <div class="player-container">
-            <div class="black-poster" id="poster" onclick="startSofiaVideo()">
-                <div class="play-btn-red"></div>
-            </div>
-
-            <iframe id="sofiaFrame" src="" allow="autoplay"></iframe>
+        <div class="poster" id="p" onclick="start()">
+            <div class="play-btn"></div>
         </div>
 
-        <div class="details">
-            <h2 style="margin:0;">Exclusive Premium Video</h2>
-            <button class="btn-claim">CLAIM REWARD 💰</button>
+        <div class="iframe-container">
+            <iframe id="f" src=""></iframe>
         </div>
     </div>
 
+    <div class="details">
+        <h2>Exclusive Premium Content</h2>
+        <button class="btn-claim">CLAIM REWARD 💰</button>
+    </div>
+
     <script>
-        var myDriveID = "19qYqzultB49ci92P8LoKJkzGSyVUIk3C";
-        var myAdLink = "https://www.google.com"; 
+        function start() {
+            // Apna Ad Link yahan dalein
+            window.open("https://www.google.com", "_blank");
 
-        function startSofiaVideo() {
-            // 1. Open Ad
-            window.open(myAdLink, "_blank");
-
-            // 2. Load Video
-            var frame = document.getElementById('sofiaFrame');
-            frame.src = "https://drive.google.com/file/d/" + myDriveID + "/preview?autoplay=1";
+            var frame = document.getElementById('f');
+            frame.src = "https://drive.google.com/file/d/19qYqzultB49ci92P8LoKJkzGSyVUIk3C/preview?autoplay=1";
             
-            // 3. Hide Poster & Show Video
-            document.getElementById('poster').style.display = "none";
-            frame.style.opacity = "1";
+            document.getElementById('p').style.display = "none";
         }
     </script>
 
