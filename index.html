@@ -3,143 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sofia Video Stream</title>
+    <title>Sofia Video Rewards</title>
     <style>
+        /* Dark Theme like YouTube */
         body { 
-            margin: 0; 
-            padding: 0; 
-            background-color: #0f0f0f; 
-            color: white; 
-            font-family: Roboto, Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin: 0; padding: 0; background: #0f0f0f; color: white; 
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        /* YouTube style container */
-        .video-main-container {
-            width: 100%;
-            max-width: 900px;
-            margin-top: 20px;
+        .video-wrapper {
+            width: 100%; max-width: 850px; margin-top: 20px;
         }
 
-        .video-holder {
-            position: relative;
-            width: 100%;
-            background: #000;
-            aspect-ratio: 16 / 9;
-            cursor: pointer;
-            border-radius: 12px;
-            overflow: hidden;
+        /* Video Container */
+        .video-player-box {
+            position: relative; width: 100%; aspect-ratio: 16/9;
+            background: #1a1a1a; cursor: pointer; border-radius: 12px;
+            overflow: hidden; border: 1px solid #333;
         }
 
-        video {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
+        video { width: 100%; height: 100%; object-fit: contain; }
 
-        /* Fake Play Button Overlay */
+        /* Custom YouTube Style Play Button */
         .play-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,0.2);
-            z-index: 10;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.1); z-index: 10;
         }
 
-        .youtube-play-btn {
-            width: 68px;
-            height: 48px;
-            background: rgba(255, 0, 0, 0.9);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
+        .play-btn-red {
+            width: 68px; height: 48px; background: rgba(255, 0, 0, 0.9);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
         }
 
-        .youtube-play-btn::before {
-            content: '';
-            border-style: solid;
-            border-width: 10px 0 10px 20px;
+        .play-btn-red::after {
+            content: ''; border-style: solid; border-width: 10px 0 10px 20px;
             border-color: transparent transparent transparent white;
         }
 
-        .video-holder:hover .youtube-play-btn {
-            background: red;
-            transform: scale(1.1);
-        }
+        /* Title & Info */
+        .video-info { padding: 15px; }
+        .video-title { font-size: 22px; font-weight: bold; margin-bottom: 5px; }
+        .video-meta { color: #aaa; font-size: 14px; }
 
-        /* Video Details like YouTube */
-        .video-details {
-            padding: 15px 10px;
-            text-align: left;
+        /* Reward Button */
+        .reward-section { text-align: center; padding: 20px; }
+        .btn-claim {
+            background: #ff4757; color: white; padding: 15px 45px;
+            border: none; border-radius: 50px; font-size: 18px;
+            font-weight: bold; cursor: pointer; transition: 0.3s;
         }
-
-        .video-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .video-stats {
-            font-size: 14px;
-            color: #aaa;
-        }
+        .btn-claim:hover { background: #ff6b81; transform: scale(1.05); }
 
         /* Ad Slots */
-        .ad-banner {
-            width: 100%;
-            max-width: 728px;
-            height: 90px;
-            background: #1a1a1a;
-            margin: 15px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #333;
-            color: #444;
+        .ad-placeholder {
+            width: 100%; max-width: 728px; height: 90px;
+            background: #161616; margin: 15px 0; border: 1px dashed #444;
+            display: flex; align-items: center; justify-content: center; color: #555;
         }
     </style>
 </head>
 <body>
 
-    <div class="ad-banner">TOP AD SPACE</div>
+    <div class="ad-placeholder">TOP AD SLOT (BANNER)</div>
 
-    <div class="video-main-container">
-        <div class="video-holder" onclick="handleVideoClick()">
-            <video id="player" poster="https://via.placeholder.com/1280x720/111/fff?text=Click+to+Watch">
-                <source src="myvideo.mp4" type="video/mp4">
+    <div class="video-wrapper">
+        <div class="video-player-box" onclick="playVideoWithAd()">
+            <video id="sofiaVideo" poster="https://via.placeholder.com/850x480/111/fff?text=Click+to+Start+Video">
+                <source src="video1.mp4" type="video/mp4">
             </video>
             
             <div class="play-overlay" id="customOverlay">
-                <div class="youtube-play-btn"></div>
+                <div class="play-btn-red"></div>
             </div>
         </div>
 
-        <div class="video-details">
-            <div class="video-title">Sofia Special: High Speed Racing Quest 2026</div>
-            <div class="video-stats">1.2M views • Premiered Feb 12, 2026</div>
+        <div class="video-info">
+            <div class="video-title">Sofia Quest: Exclusive Content</div>
+            <div class="video-meta">1.5M views • Just Now</div>
+        </div>
+
+        <div class="reward-section">
+            <button class="btn-claim" onclick="checkReward()">CLAIM YOUR REWARD 💰</button>
         </div>
     </div>
 
-    <div class="ad-banner" style="height: 250px;">BOTTOM AD SPACE</div>
+    <div class="ad-placeholder" style="height: 250px;">BOTTOM AD SLOT (NATIVE)</div>
 
     <script>
-        function handleVideoClick() {
-            var v = document.getElementById('player');
-            var o = document.getElementById('customOverlay');
+        function playVideoWithAd() {
+            var myVid = document.getElementById('sofiaVideo');
+            var overlay = document.getElementById('customOverlay');
 
-            // 1. OPEN AD: Apna Adsterra Direct Link yahan paste karein
+            // 1. OPEN AD (Apna Adsterra Direct Link yahan paste karein)
             window.open("https://www.google.com", "_blank"); 
 
-            // 2. PLAY VIDEO: Video piche chalne lagegi
-            v.play();
-            v.controls = true; // Video controls dikhne lagenge
-            o.style.display = "none"; // Play button gayab ho jayega
+            // 2. START VIDEO
+            myVid.play();
+            myVid.controls = true; // Controls (Volume/Seek) dikhayein
+            overlay.style.display = "none"; // Play button chhupayein
+        }
+
+        function checkReward() {
+            var vid = document.getElementById('sofiaVideo');
+            if(vid.currentTime > 5) {
+                alert("Sofia, Reward Claimed Successfully!");
+            } else {
+                alert("Please watch the video for at least 5 seconds!");
+            }
         }
     </script>
 
