@@ -3,144 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sofia Premium Wallpapers</title>
+    <title>Sofia Premium Wallpapers - Download & Earn</title>
     <style>
-        /* Modern Dark Theme */
-        body { 
-            margin: 0; 
-            background: #0a0a0a; 
-            color: white; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-        }
-
+        /* --- DESIGN --- */
+        body { margin: 0; background: #050505; color: white; font-family: 'Poppins', sans-serif; text-align: center; }
         header { 
-            padding: 30px; 
-            background: #000; 
-            border-bottom: 3px solid #ff4757; 
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            padding: 40px 20px; background: linear-gradient(to bottom, #000, #111); 
+            border-bottom: 3px solid #ff4757; position: sticky; top: 0; z-index: 1000;
+        }
+        header h1 { margin: 0; color: #ff4757; font-size: 2.5rem; text-shadow: 0 0 10px rgba(255, 71, 87, 0.5); }
+        header p { color: #888; margin-top: 5px; }
+
+        .container { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; padding: 40px; max-width: 1300px; margin: 0 auto; 
         }
 
-        header h1 { margin: 0; color: #ff4757; letter-spacing: 2px; }
-        header p { margin: 5px 0 0; color: #888; font-size: 14px; }
-
-        /* Wallpaper Grid */
-        .gallery { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 25px; 
-            padding: 30px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
+        /* Card Style */
+        .wall-card { 
+            background: #111; border-radius: 20px; overflow: hidden; 
+            border: 1px solid #222; transition: 0.4s; position: relative;
         }
+        .wall-card:hover { transform: translateY(-10px); border-color: #ff4757; box-shadow: 0 10px 30px rgba(255, 71, 87, 0.2); }
+        
+        .wall-card img { width: 100%; height: 400px; object-fit: cover; }
+        
+        .info { padding: 20px; background: #161616; }
+        .info h3 { margin: 0 0 15px; font-size: 1.1rem; color: #eee; }
 
-        .card { 
-            background: #1a1a1a; 
-            border-radius: 15px; 
-            overflow: hidden; 
-            transition: transform 0.3s ease;
-            border: 1px solid #333;
+        /* Download Button */
+        .dl-button { 
+            background: #ff4757; color: white; border: none; padding: 12px 0; 
+            width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; 
+            font-size: 16px; transition: 0.3s; text-transform: uppercase;
         }
+        .dl-button:hover { background: #ff6b81; letter-spacing: 1px; }
 
-        .card:hover { transform: translateY(-10px); border-color: #ff4757; }
-
-        .card img { 
-            width: 100%; 
-            height: 450px; 
-            object-fit: cover; 
-            display: block;
-        }
-
-        .card-info { padding: 20px; text-align: center; }
-        .card-info h3 { margin: 0 0 15px; font-size: 18px; }
-
-        /* Stylish Download Button */
-        .btn-download { 
-            background: #ff4757; 
-            color: white; 
-            border: none; 
-            padding: 12px 0; 
-            width: 100%; 
-            border-radius: 8px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            font-size: 16px;
-            transition: background 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-download:hover { background: #ff6b81; }
-
-        footer { padding: 40px; text-align: center; color: #555; border-top: 1px solid #222; }
+        footer { padding: 50px; color: #444; font-size: 14px; background: #000; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>SOFIA WALLPAPERS</h1>
-        <p>Premium 4K Wallpapers for your Device</p>
+        <p>High-Quality 4K Wallpapers • Free Download</p>
     </header>
 
-    <div class="gallery">
-        
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05" alt="Nature">
-            <div class="card-info">
-                <h3>Nature Mist HD</h3>
-                <button class="btn-download" onclick="startDownload('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05', 'Nature_Sofia.jpg')">
-                    DOWNLOAD 📥
-                </button>
-            </div>
+    <div class="container" id="gallery">
         </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e" alt="Forest">
-            <div class="card-info">
-                <h3>Green Forest 4K</h3>
-                <button class="btn-download" onclick="startDownload('https://images.unsplash.com/photo-1441974231531-c6227db76b6e', 'Forest_Sofia.jpg')">
-                    DOWNLOAD 📥
-                </button>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b" alt="Landscape">
-            <div class="card-info">
-                <h3>Mountain Peak</h3>
-                <button class="btn-download" onclick="startDownload('https://images.unsplash.com/photo-1501854140801-50d01698950b', 'Mountain_Sofia.jpg')">
-                    DOWNLOAD 📥
-                </button>
-            </div>
-        </div>
-
-    </div>
 
     <footer>
-        &copy; 2026 Sofia QuestVerse - All Rights Reserved
+        &copy; 2026 Sofia QuestVerse • Powered by Ads
     </footer>
 
     <script>
-        // 1. Apna Adsterra Direct Link yahan paste karein
-        var adLink = "https://www.google.com"; 
+        // --- SETTINGS ---
+        // 1. APNA ADSTERRA DIRECT LINK YAHAN DALEIN
+        var myAdLink = "https://www.google.com"; 
 
-        function startDownload(url, filename) {
-            // Click karte hi pehle Ad naye tab mein khulega
-            window.open(adLink, "_blank");
+        // 2. Wallpaper Links (Aap yahan apne pasand ke images badal sakti hain)
+        const wallpapers = [
+            { title: "Neon Cyber City", url: "https://images.unsplash.com/photo-1550745165-9bc0b252726f" },
+            { title: "Abstract Wave", url: "https://images.unsplash.com/photo-1557683316-973673baf926" },
+            { title: "Deep Forest", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e" },
+            { title: "Space Galaxy", url: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa" },
+            { title: "Ocean Blue", url: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0" },
+            { title: "Fire & Ice", url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b" },
+            { title: "Minimal Desert", url: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0" },
+            { title: "Sunset Peak", url: "https://images.unsplash.com/photo-1470252649358-96949c73e78c" },
+            { title: "Cyberpunk Night", url: "https://images.unsplash.com/photo-1511447333015-45b65e60f6d1" },
+            { title: "Winter Dream", url: "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22" }
+        ];
 
-            // Phir wallpaper download trigger hoga
+        // Gallery Generate Karein
+        const gallery = document.getElementById('gallery');
+        wallpapers.forEach((wall, index) => {
+            gallery.innerHTML += `
+                <div class="wall-card">
+                    <img src="${wall.url}" alt="${wall.title}">
+                    <div class="info">
+                        <h3>${wall.title}</h3>
+                        <button class="dl-button" onclick="handleDownload('${wall.url}')">Download HD 📥</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        function handleDownload(imgUrl) {
+            // Ad kholne ka function
+            window.open(myAdLink, "_blank");
+
+            // Download trigger
             setTimeout(() => {
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = filename;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }, 500); // 0.5 second ka delay taaki ad block na ho
+                const a = document.createElement('a');
+                a.href = imgUrl;
+                a.download = 'Sofia_Wallpaper.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }, 800);
         }
     </script>
 
