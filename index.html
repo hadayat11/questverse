@@ -3,67 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sofia Premium Player</title>
+    <title>Sofia Premium - Video Rewards</title>
     <style>
-        /* Modern Dark Theme */
-        body { margin: 0; background: #0f0f0f; color: white; font-family: 'Roboto', Arial, sans-serif; display: flex; flex-direction: column; align-items: center; }
-        
-        header { width: 100%; padding: 15px; background: #000; border-bottom: 2px solid #ff0000; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        .logo { color: #ff0000; font-size: 26px; font-weight: bold; letter-spacing: 1px; }
+        body { 
+            margin: 0; padding: 0; background: #0f0f0f; color: white; 
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            display: flex; flex-direction: column; align-items: center;
+        }
 
-        /* Video Card Design */
-        .video-card { width: 95%; max-width: 900px; margin-top: 30px; background: #1a1a1a; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.8); }
+        header {
+            width: 100%; padding: 15px; background: #000;
+            border-bottom: 2px solid #ff0000; text-align: center;
+        }
 
-        .video-container { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; }
-        
-        /* The Secret Click Layer */
-        .click-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 50; cursor: pointer; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2); }
-        
-        .play-btn { width: 80px; height: 55px; background: rgba(255, 0, 0, 0.9); border-radius: 15px; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .play-btn::after { content: ''; border-style: solid; border-width: 12px 0 12px 22px; border-color: transparent transparent transparent white; margin-left: 5px; }
-        .click-shield:hover .play-btn { transform: scale(1.1); background: red; }
+        /* Modern Video Container */
+        .video-main-card {
+            width: 95%; max-width: 850px; margin: 30px auto;
+            background: #1a1a1a; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+        }
+
+        .video-box {
+            position: relative; width: 100%; aspect-ratio: 16/9;
+            background: #000;
+        }
+
+        /* Yeh Shield Ad kholne ke liye hai */
+        .click-shield {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 100; cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .play-button-yt {
+            width: 70px; height: 50px; background: rgba(255, 0, 0, 0.9);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+        }
+
+        .play-button-yt::after {
+            content: ''; border-style: solid; border-width: 10px 0 10px 20px;
+            border-color: transparent transparent transparent white; margin-left: 5px;
+        }
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        .info-panel { padding: 20px; }
-        .title { font-size: 22px; font-weight: bold; margin-bottom: 10px; }
-        .reward-btn { background: linear-gradient(135deg, #ff4757, #ff6b81); color: white; padding: 15px 40px; border: none; border-radius: 50px; font-weight: bold; font-size: 18px; cursor: pointer; display: block; margin: 10px auto; width: fit-content; box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4); }
+        .video-info { padding: 20px; }
+        .reward-btn {
+            background: #ff4757; color: white; padding: 15px 40px;
+            border: none; border-radius: 50px; font-weight: bold;
+            font-size: 18px; cursor: pointer; display: block; margin: 0 auto;
+        }
     </style>
 </head>
 <body>
 
-    <header><div class="logo">SOFIA PREMIUM</div></header>
+    <header><h1 style="margin:0; font-size:24px; color:red;">SOFIA<span>TV</span></h1></header>
 
-    <div class="video-card">
-        <div class="video-container">
-            <div class="click-shield" id="shield" onclick="unlockVideo()">
-                <div class="play-btn"></div>
+    <div class="video-main-card">
+        <div class="video-box">
+            <div class="click-shield" id="shield" onclick="playWithAd()">
+                <div class="play-button-yt"></div>
             </div>
 
-            <iframe id="videoFrame" src=""></iframe>
+            <iframe id="videoPlayer" src="" allow="autoplay"></iframe>
         </div>
 
-        <div class="info-panel">
-            <div class="title">Sofia Exclusive: Watch & Earn Big Rewards</div>
-            <p style="color: #888;">Complete the video to unlock your points wallet.</p>
+        <div class="video-info">
+            <h2 style="margin:0;">Sofia Exclusive: 100MB High Quality Video</h2>
+            <p style="color:#aaa;">Watch here on our official website to earn rewards.</p>
             <button class="reward-btn">CLAIM REWARD 💰</button>
         </div>
     </div>
 
     <script>
-        // --- SETTINGS ---
-        var googleDriveID = "1-XXXXX_YOUR_ID_HERE_XXXXX"; // Apni video ka ID yahan dalein
-        var adLink = "https://www.google.com"; // Apna Adsterra Direct Link yahan dalein
+        // --- CONFIGURATION ---
+        // 1. Apni Google Drive Video ka ID yahan daalein
+        var driveID = "1-XXXXX_YOUR_VIDEO_ID_HERE_XXXXX"; 
+        
+        // 2. Apna Adsterra Direct Link yahan daalein
+        var adLink = "https://www.google.com"; 
 
-        function unlockVideo() {
-            // 1. Open the Ad in a new tab
+        function playWithAd() {
+            // Pehle Ad naye tab mein khulega
             window.open(adLink, "_blank");
 
-            // 2. Load and Play the Video
-            var frame = document.getElementById('videoFrame');
-            frame.src = "https://drive.google.com/file/d/" + googleDriveID + "/preview?autoplay=1";
+            // Phir video aapki website ke andar hi chalne lagegi
+            var player = document.getElementById('videoPlayer');
+            player.src = "https://drive.google.com/file/d/" + driveID + "/preview?autoplay=1";
             
-            // 3. Remove the shield
+            // Shield hata do taaki video dikhe
             document.getElementById('shield').style.display = "none";
         }
     </script>
