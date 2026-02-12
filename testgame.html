@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sofia's Test Game</title>
+    <style>
+        body { text-align: center; background: #121212; color: white; font-family: sans-serif; padding-top: 50px; }
+        button { padding: 15px 30px; font-size: 20px; cursor: pointer; background: #9b51e0; border: none; color: white; border-radius: 10px; }
+        #score { font-size: 40px; margin: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Score the Points!</h1>
+    <div id="score">0</div>
+    <button onclick="play()">CLICK ME!</button>
+    <script>
+        let count = 0;
+        function play() {
+            count++;
+            document.getElementById('score').innerText = count;
+        }
+    </script>
+</body>
+</html>
