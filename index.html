@@ -3,104 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sofia Premium Wallpapers - Download & Earn</title>
+    <title>Sofia Premium Wallpapers</title>
     <style>
-        /* --- DESIGN --- */
-        body { margin: 0; background: #050505; color: white; font-family: 'Poppins', sans-serif; text-align: center; }
-        header { 
-            padding: 40px 20px; background: linear-gradient(to bottom, #000, #111); 
-            border-bottom: 3px solid #ff4757; position: sticky; top: 0; z-index: 1000;
-        }
-        header h1 { margin: 0; color: #ff4757; font-size: 2.5rem; text-shadow: 0 0 10px rgba(255, 71, 87, 0.5); }
-        header p { color: #888; margin-top: 5px; }
-
+        body { margin: 0; background: #050505; color: white; font-family: sans-serif; text-align: center; }
+        header { padding: 30px; background: #000; border-bottom: 3px solid #ff4757; }
+        header h1 { margin: 0; color: #ff4757; }
+        
         .container { 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; padding: 40px; max-width: 1300px; margin: 0 auto; 
+            gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto; 
         }
 
-        /* Card Style */
-        .wall-card { 
-            background: #111; border-radius: 20px; overflow: hidden; 
-            border: 1px solid #222; transition: 0.4s; position: relative;
-        }
-        .wall-card:hover { transform: translateY(-10px); border-color: #ff4757; box-shadow: 0 10px 30px rgba(255, 71, 87, 0.2); }
+        .wall-card { background: #111; border-radius: 15px; overflow: hidden; border: 1px solid #222; }
+        .wall-card img { width: 100%; height: 350px; object-fit: cover; }
         
-        .wall-card img { width: 100%; height: 400px; object-fit: cover; }
-        
-        .info { padding: 20px; background: #161616; }
-        .info h3 { margin: 0 0 15px; font-size: 1.1rem; color: #eee; }
-
-        /* Download Button */
+        .info { padding: 15px; }
         .dl-button { 
-            background: #ff4757; color: white; border: none; padding: 12px 0; 
-            width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; 
-            font-size: 16px; transition: 0.3s; text-transform: uppercase;
+            background: #ff4757; color: white; border: none; padding: 12px; 
+            width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; 
         }
-        .dl-button:hover { background: #ff6b81; letter-spacing: 1px; }
-
-        footer { padding: 50px; color: #444; font-size: 14px; background: #000; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>SOFIA WALLPAPERS</h1>
-        <p>High-Quality 4K Wallpapers • Free Download</p>
-    </header>
+    <header><h1>SOFIA WALLPAPERS</h1></header>
 
-    <div class="container" id="gallery">
-        </div>
-
-    <footer>
-        &copy; 2026 Sofia QuestVerse • Powered by Ads
-    </footer>
+    <div class="container" id="gallery"></div>
 
     <script>
-        // --- SETTINGS ---
-        // 1. APNA ADSTERRA DIRECT LINK YAHAN DALEIN
+        // 1. APNA AD LINK YAHAN DALEIN
         var myAdLink = "https://www.google.com"; 
 
-        // 2. Wallpaper Links (Aap yahan apne pasand ke images badal sakti hain)
         const wallpapers = [
-            { title: "Neon Cyber City", url: "https://images.unsplash.com/photo-1550745165-9bc0b252726f" },
+            { title: "Neon City", url: "https://images.unsplash.com/photo-1550745165-9bc0b252726f" },
             { title: "Abstract Wave", url: "https://images.unsplash.com/photo-1557683316-973673baf926" },
-            { title: "Deep Forest", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e" },
             { title: "Space Galaxy", url: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa" },
-            { title: "Ocean Blue", url: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0" },
-            { title: "Fire & Ice", url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b" },
-            { title: "Minimal Desert", url: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0" },
-            { title: "Sunset Peak", url: "https://images.unsplash.com/photo-1470252649358-96949c73e78c" },
-            { title: "Cyberpunk Night", url: "https://images.unsplash.com/photo-1511447333015-45b65e60f6d1" },
-            { title: "Winter Dream", url: "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22" }
+            { title: "Mountain Peak", url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b" }
         ];
 
-        // Gallery Generate Karein
         const gallery = document.getElementById('gallery');
-        wallpapers.forEach((wall, index) => {
+        wallpapers.forEach(wall => {
             gallery.innerHTML += `
                 <div class="wall-card">
                     <img src="${wall.url}" alt="${wall.title}">
                     <div class="info">
                         <h3>${wall.title}</h3>
-                        <button class="dl-button" onclick="handleDownload('${wall.url}')">Download HD 📥</button>
+                        <button class="dl-button" onclick="handleDownload('${wall.url}')">VIEW & DOWNLOAD 📥</button>
                     </div>
                 </div>
             `;
         });
 
         function handleDownload(imgUrl) {
-            // Ad kholne ka function
+            // Step 1: Pehle Ad khulega
             window.open(myAdLink, "_blank");
 
-            // Download trigger
+            // Step 2: Phir Image khulegi naye tab mein (800ms delay ke baad)
             setTimeout(() => {
-                const a = document.createElement('a');
-                a.href = imgUrl;
-                a.download = 'Sofia_Wallpaper.jpg';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+                window.open(imgUrl + "?dl=1", "_blank");
             }, 800);
         }
     </script>
